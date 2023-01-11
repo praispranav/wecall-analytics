@@ -44,6 +44,7 @@ export class CreateEntryDto {
     PublisherId: string | null = null;
 
     @ApiProperty({
+        description: "Revenue will be in 40.0 format.",
         required: false,
         default: null
     })

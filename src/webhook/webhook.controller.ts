@@ -15,8 +15,13 @@ export class WebhookController {
         return await this.webhookService.getAll()
     }
 
-    @Post()
+    @Post('insert')
     async insert(@Body() payload: CreateEntryDto) {
         return await this.webhookService.insert(payload)
+    }
+
+    @Post('update')
+    async update(@Body() payload: CreateEntryDto) {
+        return await this.webhookService.update(payload)
     }
 }

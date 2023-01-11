@@ -6,8 +6,11 @@ export type WebhookDocument = Webhook & Document;
 @Schema()
 export class Webhook {
 
-    @Prop({ type: Date, required: false, default: null, index: true })
-    CallDateTime: Date;
+    @Prop({ type: String, required: false, default: null, index: true })
+    CallDateTime: string;
+
+    @Prop({ type: Date, required: false, index: true })
+    callDateTimeJs: Date;
 
     @Prop({ type: String, required: false, default: null })
     Hangup: string;
@@ -80,6 +83,9 @@ export class Webhook {
 
     @Prop({ type: String, required: false, default: null })
     LeadSource: string;
+
+    @Prop({ type: Date, required: false, default: null })
+    timestamp: Date = new Date();
 
 }
 
