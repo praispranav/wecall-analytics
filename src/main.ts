@@ -6,7 +6,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const bodyParser = await require('body-parser');
-  
+
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   const config = new DocumentBuilder()
@@ -18,7 +18,7 @@ async function bootstrap() {
       type: 'apiKey',
       name: 'x-api-key',
       in: 'header',
-  }, 'x-api-key') 
+    }, 'x-api-key')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

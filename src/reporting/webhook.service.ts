@@ -1,4 +1,4 @@
-import { Injectable,HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateEntryDto } from './webhook.dto';
@@ -6,7 +6,9 @@ import { Webhook, WebhookDocument } from './webhook.schema';
 
 @Injectable()
 export class WebhookService {
-    constructor(@InjectModel(Webhook.name) private model: Model<WebhookDocument>) { }
+    constructor(
+        @InjectModel(Webhook.name) private model: Model<WebhookDocument>,
+    ) { }
 
     async insert(payload) {
         const dto = new CreateEntryDto();
@@ -74,10 +76,10 @@ export class WebhookService {
         dto.JornayaId = payload.JornayaId ? payload.JornayaId : findEntry.JornayaId;
         dto.LeadSource = payload.LeadSource ? payload.LeadSource : findEntry.LeadSource
 
-        try{
-            await this.model.findOneAndUpdate({ InboundCallId: payload.InboundCallId },dto);
+        try {
+            await this.model.findOneAndUpdate({ InboundCallId: payload.InboundCallId }, dto);
             return { message: "Updated Successfully", _id: findEntry._id, InboundCallId: payload.InboundCallId }
-        } catch(error){
+        } catch (error) {
             throw new HttpException("", HttpStatus.BAD_REQUEST)
         }
     }
@@ -117,6 +119,28 @@ export class WebhookService {
 
     async getAll() {
         return await this.model.find()
+    }
+
+    generateEntries(data) {
+        const Columns = data[0];
+        const newList: Node[] = [];
+
+        data.slice(1, data.length).forEach((a) => {
+            const obj: any = {};
+
+            const ent = Object.entries(a);
+            ent.forEach((i) => {
+                obj[Columns[i[0]]] = String(i[1]);
+            });
+            newList.push(obj);
+        });
+
+        return newList;
+    }
+
+    async addMultipleEntries(data) {
+        const result = await this.model.insertMany(data);
+        return result;
     }
 
 }
