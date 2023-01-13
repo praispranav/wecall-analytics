@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type LeadsDocument = Leads & Document;
+export type LeadsConfigDocument = LeadsConfig & Document;
 
 export interface AdditionalKeys{
     fieldName: string;
@@ -14,7 +14,7 @@ export interface Aliases {
 }
 
 @Schema()
-export class Leads {
+export class LeadsConfig {
 
     @Prop({ type: String })
     name: string;
@@ -30,4 +30,4 @@ export class Leads {
 
 }
 
-export const LeadsSchema = SchemaFactory.createForClass(Leads);
+export const LeadsConfigSchema = SchemaFactory.createForClass(LeadsConfig);

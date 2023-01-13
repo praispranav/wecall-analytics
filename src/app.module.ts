@@ -6,17 +6,22 @@ import { AuthModule } from './auth/auth.module';
 import { WebhookModule } from './reporting/webhook.module';
 import { UtilsModule } from './utils/utils.module';
 import { LeadsModule } from './leads/leads.module';
-import { LeadsModule } from './leads/leads.module';
+import {
+  LeadsConnection,
+  ReportingConnection,
+} from './constants/ConnectionNames';
 require('dotenv').config();
 
 @Module({
   imports: [
-    AuthModule, 
-    WebhookModule, 
-    MongooseModule.forRoot(process.env.DB, { dbName: 'wecall-analytics'}), 
-    UtilsModule, LeadsModule
+    AuthModule,
+    WebhookModule,
+    MongooseModule.forRoot(process.env.DB, ReportingConnection),
+    MongooseModule.forRoot(process.env.DB, LeadsConnection),
+    UtilsModule,
+    LeadsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
