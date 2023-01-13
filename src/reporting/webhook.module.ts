@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { getConnectionToken, MongooseModule } from '@nestjs/mongoose';
+import { Connection } from 'mongoose';
 import { ReportingConnection } from 'src/constants/ConnectionNames';
 import { UtilsModule } from 'src/utils/utils.module';
 import { WebhookController } from './webhook.controller';
@@ -15,6 +16,14 @@ import { WebhookService } from './webhook.service';
     UtilsModule,
   ],
   controllers: [WebhookController],
-  providers: [WebhookService],
+  providers: [
+    {
+      provide: WebhookService,
+      useFactory: (webhookConnection) => {
+        return new WebhookService(webhookConnection);
+      },
+      inject: [getConnectionToken(ReportingConnection.connectionName)],
+    }
+  ],
 })
 export class WebhookModule {}

@@ -1,13 +1,14 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ReportingConnection } from 'src/constants/ConnectionNames';
 import { CreateEntryDto } from './webhook.dto';
 import { Webhook, WebhookDocument } from './webhook.schema';
 
 @Injectable()
 export class WebhookService {
     constructor(
-        @InjectModel(Webhook.name) private model: Model<WebhookDocument>,
+        @InjectModel(Webhook.name, ReportingConnection.connectionName) private model: Model<WebhookDocument>,
     ) { }
 
     async insert(payload) {
