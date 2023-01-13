@@ -84,6 +84,44 @@ export class Webhook {
     @Prop({ type: String, required: false, default: null })
     LeadSource: string;
 
+
+
+    @Prop({ type: String, required: false, default: null })
+    UtmSource: string;
+
+    @Prop({ type: String, required: false, default: null })
+    UtmMedium: string;
+
+    @Prop({ type: String, required: false, default: null })
+    UtmCampaign: string;
+
+    @Prop({ type: String, required: false, default: null })
+    UtmAdset: string;
+
+    @Prop({ type: String, required: false, default: null })
+    UtmAd: string;
+
+    @Prop({ type: String, required: false, default: null })
+    SiteId: string;
+
+    @Prop({ type: String, required: false, default: null })
+    VisitorId: string;
+
+    @Prop({ type: String, required: false, default: null })
+    InboundState: string;
+
+    @Prop({ type: String, required: false, default: null })
+    IcpState: string;
+
+    @Prop({ type: Number, required: false, default: null })
+    IcpZip: number;
+
+    @Prop({ type: String, required: false, default: null })
+    UserState: string;
+
+    @Prop({ type: Number, required: false, default: null })
+    UserZip: number;
+
     @Prop({ type: Date, required: false, default: null })
     timestamp: Date = new Date();
 

@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { WebhookModule } from './reporting/webhook.module';
 import { UtilsModule } from './utils/utils.module';
+import { LeadsModule } from './leads/leads.module';
+import { LeadsModule } from './leads/leads.module';
 require('dotenv').config();
 
 @Module({
@@ -12,7 +14,7 @@ require('dotenv').config();
     AuthModule, 
     WebhookModule, 
     MongooseModule.forRoot(process.env.DB, { dbName: 'wecall-analytics'}), 
-    UtilsModule
+    UtilsModule, LeadsModule
   ],
   controllers: [AppController],
   providers: [AppService],

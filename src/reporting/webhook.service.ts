@@ -36,6 +36,19 @@ export class WebhookService {
         dto.JornayaId = payload.JornayaId ? payload.JornayaId : '';
         dto.LeadSource = payload.LeadSource ? payload.LeadSource : ""
 
+        dto.UtmSource = payload.UtmSource ? payload.UtmSource : "";
+        dto.UtmMedium = payload.UtmMedium ? payload.UtmMedium : "";
+        dto.UtmCampaign = payload.UtmCampaign ? payload.UtmCampaign : '';
+        dto.UtmAdset = payload.UtmAdset ? payload.UtmAdset : "";
+        dto.UtmAd = payload.UtmAd ? payload.UtmAd : "";
+        dto.SiteId = payload.SiteId ? payload.SiteId : '';
+        dto.VisitorId = payload.VisitorId ? payload.VisitorId : '';
+        dto.InboundState = payload.InboundState ? payload.InboundState : '';
+        dto.IcpState = payload.IcpState ? payload.IcpState : '';
+        dto.IcpZip = payload.IcpZip ? payload.IcpZip : 0;
+        dto.UserState = payload.UserState ? payload.UserState : '';
+        dto.UserZip = payload.UserZip ? payload.UserZip : 0;
+
         const obj = {
             ...dto,
             callDateTimeJs: payload.CallDateTime ? this.formatRequestDateFormat(payload.CallDateTime) : new Date(),
@@ -75,6 +88,19 @@ export class WebhookService {
         dto.IsBillable = payload.IsBillable ? payload.IsBillable : findEntry.IsBillable;
         dto.JornayaId = payload.JornayaId ? payload.JornayaId : findEntry.JornayaId;
         dto.LeadSource = payload.LeadSource ? payload.LeadSource : findEntry.LeadSource
+
+        dto.UtmSource = payload.UtmSource ? payload.UtmSource : findEntry.UtmSource;
+        dto.UtmMedium = payload.UtmMedium ? payload.UtmMedium : findEntry.UtmMedium;
+        dto.UtmCampaign = payload.UtmCampaign ? payload.UtmCampaign : findEntry.UtmCampaign;
+        dto.UtmAdset = payload.UtmAdset ? payload.UtmAdset : findEntry.UtmAdset;
+        dto.UtmAd = payload.UtmAd ? payload.UtmAd : findEntry.UtmAd;
+        dto.SiteId = payload.SiteId ? payload.SiteId : findEntry.SiteId;
+        dto.VisitorId = payload.VisitorId ? payload.VisitorId : findEntry.VisitorId;
+        dto.InboundState = payload.InboundState ? payload.InboundState : findEntry.InboundState;
+        dto.IcpState = payload.IcpState ? payload.IcpState : findEntry.IcpState;
+        dto.IcpZip = payload.IcpZip ? payload.IcpZip : findEntry.IcpZip;
+        dto.UserState = payload.UserState ? payload.UserState : findEntry.UserState;
+        dto.UserZip = payload.UserZip ? payload.UserZip : findEntry.UserZip;
 
         try {
             await this.model.findOneAndUpdate({ InboundCallId: payload.InboundCallId }, dto);
@@ -143,4 +169,8 @@ export class WebhookService {
         return result;
     }
 
+    async disposition({ IsConverted, InboundCallId }){
+        await this.model.findOneAndUpdate({ InboundCallId }, { IsConverted });
+        return { message: `Inbound Call Id ${InboundCallId} has been updated.`}
+    }
 }
