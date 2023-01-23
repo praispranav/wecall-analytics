@@ -7,3 +7,8 @@ export const ReportingConnection = {
   dbName: 'wecall-leads',
   connectionName: 'leads',
 };
+
+export const UtilsConnection = {
+  dbName: 'wecall-utils',
+  connectionName: 'utils',
+};

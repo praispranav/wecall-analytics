@@ -9,6 +9,7 @@ import { LeadsModule } from './leads/leads.module';
 import {
   LeadsConnection,
   ReportingConnection,
+  UtilsConnection,
 } from './constants/ConnectionNames';
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ require('dotenv').config();
     WebhookModule,
     MongooseModule.forRoot(process.env.DB, ReportingConnection),
     MongooseModule.forRoot(process.env.DB, LeadsConnection),
+    MongooseModule.forRoot(process.env.DB, UtilsConnection),
     UtilsModule,
     LeadsModule,
   ],
